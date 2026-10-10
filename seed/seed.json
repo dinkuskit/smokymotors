@@ -1,0 +1,65 @@
+{
+  "$schema": "https://emdashcms.com/seed.schema.json",
+  "version": "1",
+  "meta": {
+    "name": "Smoky Motors coming soon",
+    "description": "Seeded copy and editable navigation for the Smoky Motors launch page.",
+    "author": "Smoky Motors"
+  },
+  "collections": [
+    {
+      "slug": "pages",
+      "label": "Pages",
+      "labelSingular": "Page",
+      "supports": ["drafts", "revisions"],
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "headline",
+          "label": "Headline",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "status_line",
+          "label": "Status line",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "address",
+          "label": "Address",
+          "type": "string",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "menus": [
+    {
+      "name": "site-primary",
+      "label": "Site navigation",
+      "items": []
+    }
+  ],
+  "content": {
+    "pages": [
+      {
+        "id": "home",
+        "slug": "home",
+        "status": "published",
+        "data": {
+          "title": "Smoky Motors",
+          "headline": "SMOKY MOTORS",
+          "status_line": "Coming soon",
+          "address": "7264 HWY 411, Benton, TN 37307"
+        }
+      }
+    ]
+  }
+}

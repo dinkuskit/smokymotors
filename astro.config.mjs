@@ -12,6 +12,23 @@ export default defineConfig({
   output: 'server',
   site: 'https://smokymotors.com',
   adapter: isCloudflare ? cloudflare() : node({ mode: 'standalone' }),
+  vite: {
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (
+              id.includes('/node_modules/kysely/') ||
+              id.includes('/node_modules/kysely-d1/') ||
+              id.includes('/node_modules/@libsql/kysely-libsql/')
+            ) {
+              return 'kysely';
+            }
+          },
+        },
+      },
+    },
+  },
   integrations: [
     react(),
     emdash({

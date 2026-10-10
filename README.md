@@ -4,7 +4,7 @@ smokymotors.com is the website for Smoky Motors at 7264 HWY 411, Benton, TN 3730
 
 ## Status / hosted URL
 
-The coming-soon page is not built or deployed yet. The planned hosted URL is [smokymotors.com](https://smokymotors.com).
+The coming-soon page is not built or deployed yet. The planned hosted URL is `smokymotors.com`.
 
 ## Local development
 

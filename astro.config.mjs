@@ -26,4 +26,22 @@ export default defineConfig({
           }),
     }),
   ],
+  vite: {
+    ssr: {
+      // Keep EmDash's Kysely dependency in the Worker bundle. Leaving the
+      // database modules split lets Vite emit a circular chunk graph that
+      // evaluates the Kysely base class before it has been initialized.
+      noExternal: true,
+    },
+    build: {
+      rollupOptions: {
+        output: {
+          // Keep the Worker runtime in one shared chunk. Splitting EmDash's
+          // database and locale modules makes Rollup emit chunks that import
+          // each other during Worker startup.
+          manualChunks: () => 'worker-runtime',
+        },
+      },
+    },
+  },
 });

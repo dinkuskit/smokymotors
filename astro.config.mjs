@@ -2,6 +2,7 @@ import cloudflare from '@astrojs/cloudflare';
 import node from '@astrojs/node';
 import react from '@astrojs/react';
 import { d1, r2 } from '@emdash-cms/cloudflare';
+import { cloudflareEmail } from '@emdash-cms/cloudflare/plugins/cloudflare-email';
 import { formsPlugin } from '@emdash-cms/plugin-forms';
 import emdash, { local } from 'emdash/astro';
 import { sqlite } from 'emdash/db';
@@ -18,7 +19,14 @@ export default defineConfig({
   integrations: [
     react(),
     emdash({
-      plugins: [formsPlugin(), askAboutCarBootstrap()],
+      plugins: [
+        formsPlugin(),
+        cloudflareEmail({
+          from: { email: 'noreply@smokymotors.com', name: 'Smoky Motors' },
+          binding: 'EMAIL',
+        }),
+        askAboutCarBootstrap(),
+      ],
       database: isCloudflare
         ? d1({ binding: 'DB' })
         : sqlite({ url: 'file:./.emdash/content.db' }),

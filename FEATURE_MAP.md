@@ -14,6 +14,7 @@
 - `purchase_price` exists for admin accounting only. Public Astro templates and `/api/vehicles.json` explicitly project an allow-list and never serialize it.
 - The seed creates `site-primary` only when it is missing, with Home, Inventory, About, and Contact / Visit. The menu is read from EmDash and editable in `/_emdash/admin`.
 - `@emdash-cms/plugin-forms` is enabled as the upstream plugin. A native bootstrap hook creates the `ask-about-car` form only when missing, with `sales@smokymotors.com` as its sole notification address. The exact public `/contact-submit` route invokes its submit handler in-process so Access can bypass only that route; submissions remain CMS records.
+- Form alerts are delivered through Cloudflare Email Sending from `noreply@smokymotors.com` to `sales@smokymotors.com`.
 - `/_emdash/admin` is provided by the EmDash Astro integration for editing seeded content.
 
 ## Cloudflare

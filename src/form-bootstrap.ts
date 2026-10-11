@@ -4,6 +4,8 @@ import { ulid } from 'ulidx';
 import { siteConfig } from './config';
 
 const FORM_ID = 'ask-about-car';
+const EMAIL_DELIVER_HOOK = 'email:deliver';
+const EMAIL_PROVIDER_ID = 'cloudflare-email';
 
 export function askAboutCarBootstrap(): PluginDescriptor {
   return {
@@ -21,6 +23,30 @@ export function createPlugin() {
       'plugin:activate': {
         handler: async (_event: unknown, ctx: PluginContext) => {
           const db = (await getDb()) as any;
+          const emailProviderOption = `emdash:exclusive_hook:${EMAIL_DELIVER_HOOK}`;
+          const selectedEmailProviderRow = await db
+            .selectFrom('options')
+            .select('value')
+            .where('name', '=', emailProviderOption)
+            .executeTakeFirst();
+          const selectedEmailProvider = selectedEmailProviderRow
+            ? JSON.parse(selectedEmailProviderRow.value)
+            : null;
+          if (!selectedEmailProvider) {
+            await db
+              .insertInto('options')
+              .values({
+                name: emailProviderOption,
+                value: JSON.stringify(EMAIL_PROVIDER_ID),
+                revision: crypto.randomUUID(),
+              })
+              .onConflict((oc: any) =>
+                oc.column('name').doNothing(),
+              )
+              .execute();
+            ctx.log.info('Selected Cloudflare Email Sending provider');
+          }
+
           const existing = await db
             .selectFrom('_plugin_storage')
             .select('id')

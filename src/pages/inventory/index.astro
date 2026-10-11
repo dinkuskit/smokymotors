@@ -1,0 +1,15 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { getPublicVehicles } from '../../data';
+const vehicles = await getPublicVehicles();
+---
+<SiteLayout title="Inventory" description="Available used vehicles at Smoky Motors in Benton, TN.">
+  <section class="intro"><p class="eyebrow">Current inventory</p><h1>Pick your next road.</h1><p>Every vehicle is sold as-is, no warranty. Call or visit the lot to ask questions and take a look.</p></section>
+  <div class="grid">
+    {vehicles.map((vehicle) => <a class="card" href={`/inventory/${vehicle.slug}`}><img src="/vehicle-placeholder.svg" alt="" /><div class="details"><span>{vehicle.year} · {vehicle.mileage} miles</span><h2>{vehicle.make} {vehicle.model} {vehicle.trim}</h2><strong>${vehicle.price.toLocaleString()}</strong></div></a>)}
+  </div>
+</SiteLayout>
+<style>
+  .intro { padding:6rem 0 3rem; max-width:680px; } .eyebrow,.card span { color:var(--green); font:500 .7rem 'DM Mono',monospace; letter-spacing:.12em; text-transform:uppercase; } h1 { margin:1rem 0; font-size:clamp(3rem,8vw,7rem); letter-spacing:-.09em; line-height:.9; } .intro p:last-child { color:var(--muted); line-height:1.6; }
+  .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; padding-bottom:5rem; } .card { background:var(--card); text-decoration:none; } .card img { display:block; width:100%; aspect-ratio:1.5; object-fit:cover; } .details { padding:1.2rem; } .card span { color:var(--muted); font-size:.63rem; } h2 { margin:.6rem 0 1.4rem; font-size:1.2rem; } strong { color:var(--green); } @media(max-width:760px){.grid{grid-template-columns:1fr 1fr}} @media(max-width:520px){.grid{grid-template-columns:1fr}}
+</style>

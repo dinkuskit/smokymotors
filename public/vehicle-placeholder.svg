@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <rect width="1200" height="800" fill="#18211c"/>
+  <path d="M0 610h1200" stroke="#65786a" stroke-width="3"/>
+  <path d="M190 560l85-160h545l155 160v55H190z" fill="#2e4436" stroke="#c8e6bc" stroke-width="5"/>
+  <path d="M350 400l50-80h260l70 80z" fill="#101612" stroke="#c8e6bc" stroke-width="5"/>
+  <circle cx="365" cy="615" r="55" fill="#0b0f0d" stroke="#c8e6bc" stroke-width="8"/>
+  <circle cx="840" cy="615" r="55" fill="#0b0f0d" stroke="#c8e6bc" stroke-width="8"/>
+  <text x="600" y="730" fill="#aab5aa" font-family="monospace" font-size="28" text-anchor="middle">SMOKY MOTORS / VEHICLE PHOTO</text>
+</svg>

@@ -1,0 +1,58 @@
+---
+import SiteHeader from '../components/SiteHeader.astro';
+import { siteConfig } from '../config';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Used vehicles in Benton, Tennessee from Smoky Motors.' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:image" content={`${Astro.url.origin}/vehicle-placeholder.svg`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <link rel="icon" href="/favicon.svg" />
+    <title>{title} | {siteConfig.name}</title>
+  </head>
+  <body>
+    <SiteHeader />
+    <main><slot /></main>
+    <footer>
+      <div><strong>SMOKY MOTORS</strong><span>{siteConfig.address}</span></div>
+      <a href="/contact">Contact / Visit</a>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;600;700;800&display=swap');
+  :root { color-scheme: dark; --ink:#f3f4ef; --muted:#aab5aa; --line:#314039; --green:#c8e6bc; --bg:#0b0f0d; --card:#141b17; }
+  * { box-sizing:border-box; }
+  body { margin:0; min-width:320px; color:var(--ink); background:var(--bg); font-family:Manrope,system-ui,sans-serif; }
+  a { color:inherit; }
+  .site-header, footer { display:flex; align-items:center; justify-content:space-between; gap:2rem; width:min(90vw,1180px); margin:auto; padding:1.5rem 0; }
+  .site-header { border-bottom:1px solid var(--line); }
+  .brand { font-size:1.05rem; font-weight:800; letter-spacing:-.06em; text-decoration:none; }
+  .brand span { color:var(--green); }
+  nav { display:flex; flex-wrap:wrap; gap:1.4rem; font:500 .72rem 'DM Mono',monospace; letter-spacing:.09em; text-transform:uppercase; }
+  nav a, footer a { text-decoration:none; color:var(--muted); }
+  nav a:hover, footer a:hover { color:var(--green); }
+  main { width:min(90vw,1180px); margin:auto; }
+  footer { margin-top:5rem; border-top:1px solid var(--line); color:var(--muted); font: .72rem 'DM Mono',monospace; text-transform:uppercase; letter-spacing:.05em; }
+  footer div { display:flex; gap:1rem; flex-wrap:wrap; }
+  footer strong { color:var(--ink); }
+  @media (max-width:600px) { .site-header { align-items:flex-start; flex-direction:column; gap:1rem; } footer { align-items:flex-start; flex-direction:column; } }
+</style>

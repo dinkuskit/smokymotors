@@ -6,6 +6,7 @@ import { formsPlugin } from '@emdash-cms/plugin-forms';
 import emdash, { local } from 'emdash/astro';
 import { sqlite } from 'emdash/db';
 import { defineConfig } from 'astro/config';
+import { askAboutCarBootstrap } from './src/form-bootstrap';
 
 const isCloudflare = process.env.ASTRO_ADAPTER === 'cloudflare';
 
@@ -17,7 +18,7 @@ export default defineConfig({
   integrations: [
     react(),
     emdash({
-      plugins: [formsPlugin()],
+      plugins: [formsPlugin(), askAboutCarBootstrap()],
       database: isCloudflare
         ? d1({ binding: 'DB' })
         : sqlite({ url: 'file:./.emdash/content.db' }),

@@ -85,6 +85,33 @@ try {
     failures.push('Public inventory API is empty or unavailable');
   }
   if (/purchase_price/i.test(apiText)) failures.push('purchase_price leaked in the public inventory API');
+  const productionCheck =
+    process.env.VERIFY_PRODUCTION === '1' ||
+    !['localhost', '127.0.0.1', '::1'].includes(base.hostname);
+  const submitResponse = await fetch(new URL('/contact-submit', base), {
+    method: 'POST',
+    redirect: 'manual',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({
+      formId: 'ask-about-car',
+      data: {
+        name: 'verify-site',
+        email: 'verify-site@example.com',
+        phone: '555-0100',
+        message: `verify-site ${Date.now()}`,
+      },
+    }),
+  });
+  if (productionCheck) {
+    if (submitResponse.status >= 300 && submitResponse.status < 400) {
+      failures.push('/contact-submit redirects in production (likely Access-gated)');
+    }
+  } else {
+    const submitText = await submitResponse.text();
+    if (submitResponse.status !== 200 || !/"success"\s*:\s*true/i.test(submitText)) {
+      failures.push('/contact-submit did not save a non-production test submission');
+    }
+  }
   for (const match of inventoryHtml.matchAll(/href=["'](\/inventory\/[^"']+)["']/gi)) {
     const vehicleUrl = new URL(match[1], base);
     const vehicleResponse = await fetch(vehicleUrl);

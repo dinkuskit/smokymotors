@@ -7,7 +7,7 @@ const vehicle = Astro.url.searchParams.get('vehicle') ?? '';
 ---
 <SiteLayout title="Contact / Visit">
   <section class="contact-grid">
-    <div><p class="eyebrow">Come by the lot</p><h1>Let's talk cars.</h1><p class="copy">See something you like? Ask a question, or stop by Smoky Motors in Benton.</p><div class="info"><address>{siteConfig.address}</address><a href={siteConfig.mapsUrl} target="_blank" rel="noreferrer">Open in Google Maps →</a>{siteConfig.contactPhone ? <><a href={`tel:${siteConfig.contactPhone}`}>Call {siteConfig.contactPhone}</a><a href={`sms:${siteConfig.contactPhone}`}>Text us</a></> : <p class="flag">Phone / SMS is not configured yet.</p>}</div></div>
+    <div><p class="eyebrow">Come by the lot</p><h1>Let's talk cars.</h1><p class="copy">See something you like? Ask a question, or stop by Smoky Motors in Benton.</p><div class="info"><address>{siteConfig.address}</address><a href={siteConfig.mapsUrl} target="_blank" rel="noreferrer">Open in Google Maps →</a>{siteConfig.contactPhone ? <><a href={`tel:${siteConfig.contactPhone}`}>Call {siteConfig.contactPhone}</a><a href={`sms:${siteConfig.contactPhone}`}>Text us</a><p class="flag">Phone is a placeholder — Ryan must replace it before launch.</p></> : <p class="flag">Phone / SMS is not configured yet.</p>}</div></div>
     <div class="form-wrap"><p class="eyebrow">Ask about this car</p><h2>We’ll get back to you.</h2>
       <Form id={siteConfig.formId} />
       <form class="contact-form" action="/contact-submit" method="POST">

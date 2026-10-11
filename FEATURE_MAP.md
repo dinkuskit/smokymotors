@@ -13,12 +13,12 @@
 - `seed/seed.json` defines editable `pages` and `vehicles` collections and seeds twelve realistic sample vehicles with placeholder images.
 - `purchase_price` exists for admin accounting only. Public Astro templates and `/api/vehicles.json` explicitly project an allow-list and never serialize it.
 - The seed creates `site-primary` only when it is missing, with Home, Inventory, About, and Contact / Visit. The menu is read from EmDash and editable in `/_emdash/admin`.
-- `@emdash-cms/plugin-forms` is enabled as the upstream plugin. A native bootstrap hook creates the `ask-about-car` form only when missing, with `sales@smokymotors.com` as its sole notification address. The exact public `/contact-submit` route invokes its submit handler in-process so Access can bypass only that route; submissions remain CMS records.
+- `@emdash-cms/plugin-forms` is enabled as the upstream plugin. A native bootstrap hook creates the `ask-about-car` form only when missing, with `sales@smokymotors.com` as its sole notification address. Form alerts go via Cloudflare Email Sending from `noreply@smokymotors.com` to `sales@smokymotors.com`. The bootstrap hook sets `cloudflare-email` as the exclusive `email:deliver` provider in DB settings if missing (can also be managed manually in `/_emdash/admin` under Settings → Email). The exact public `/contact-submit` route invokes its submit handler in-process so Access can bypass only that route; submissions remain CMS records.
 - `/_emdash/admin` is provided by the EmDash Astro integration for editing seeded content.
 
 ## Cloudflare
 
-- `wrangler.jsonc` declares committed D1 and KV IDs, R2 media, the custom domain, `workers_dev: false`, `preview_urls: false`, and observability sampling at 1.
+- `wrangler.jsonc` declares committed D1 and KV IDs, R2 media, the `send_email` binding (`EMAIL`) for Cloudflare Email Sending, the custom domain, `workers_dev: false`, `preview_urls: false`, and observability sampling at 1.
 - The Worker keeps the EmDash runtime in one bundle, including the Kysely circular-import fix from draft PR #3. The live config values overlap draft PR #5 and should be reconciled when this PR lands.
 - Node is pinned via `.nvmrc` and the package engine to 22.16+.
 

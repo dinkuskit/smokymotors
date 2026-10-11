@@ -21,6 +21,25 @@ export function createPlugin() {
       'plugin:activate': {
         handler: async (_event: unknown, ctx: PluginContext) => {
           const db = (await getDb()) as any;
+
+          const existingEmailHook = await db
+            .selectFrom('options')
+            .select('value')
+            .where('name', '=', 'emdash:exclusive_hook:email:deliver')
+            .executeTakeFirst();
+          if (!existingEmailHook) {
+            await db
+              .insertInto('options')
+              .values({
+                name: 'emdash:exclusive_hook:email:deliver',
+                value: JSON.stringify('cloudflare-email'),
+                revision: crypto.randomUUID(),
+              })
+              .onConflict((oc: any) => oc.column('name').doNothing())
+              .execute();
+            ctx.log.info('Bootstrapped cloudflare-email as exclusive email:deliver provider');
+          }
+
           const existing = await db
             .selectFrom('_plugin_storage')
             .select('id')

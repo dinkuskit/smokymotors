@@ -29,6 +29,11 @@
       "bucket_name": "smokymotors-media"
     }
   ],
+  "send_email": [
+    {
+      "name": "EMAIL"
+    }
+  ],
   "routes": [
     {
       "pattern": "smokymotors.com",

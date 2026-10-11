@@ -44,6 +44,9 @@ export default defineConfig({
       // database modules split lets Vite emit a circular chunk graph that
       // evaluates the Kysely base class before it has been initialized.
       noExternal: true,
+      // The Cloudflare email provider loads this Workers-only module at
+      // delivery time; leave it external for the local Node adapter build.
+      external: ['cloudflare:workers'],
     },
     build: {
       rollupOptions: {

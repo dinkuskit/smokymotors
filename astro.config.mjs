@@ -50,6 +50,7 @@ export default defineConfig({
     },
     build: {
       rollupOptions: {
+        external: ['cloudflare:workers'],
         output: {
           // Keep the EmDash/Kysely runtime in one shared chunk. Splitting
           // these modules caused a circular import during Worker startup.

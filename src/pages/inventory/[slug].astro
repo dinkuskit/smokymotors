@@ -1,0 +1,24 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { siteConfig } from '../../config';
+import { getPublicVehicle } from '../../data';
+
+const { slug } = Astro.params;
+const data = await getPublicVehicle(slug ?? '');
+if (!data) return Astro.redirect('/inventory');
+const price = data.price.toLocaleString();
+---
+<SiteLayout title={`${data.year} ${data.make} ${data.model}`} description={`${data.year} ${data.make} ${data.model} at Smoky Motors.`}>
+  <a class="back" href="/inventory">← Back to inventory</a>
+  <article>
+    <div class="photo"><img src="/vehicle-placeholder.svg" alt={`${data.year} ${data.make} ${data.model} placeholder photo`} /></div>
+    <div class="copy"><p class="eyebrow">{data.availability === 'sold' ? 'Sold' : 'Available'} · {data.year}</p><h1>{data.make} {data.model}<small>{data.trim}</small></h1><strong class="price">${price}</strong>
+      <dl><div><dt>Mileage</dt><dd>{data.mileage} miles</dd></div><div><dt>VIN</dt><dd>{data.vin}</dd></div></dl>
+      <p class="description">{data.description}</p><p class="as-is">Sold as-is, no warranty.</p>
+      <a class="button" href={`/contact?vehicle=${encodeURIComponent(`${data.year} ${data.make} ${data.model}`)}`}>Ask about this car</a>
+    </div>
+  </article>
+</SiteLayout>
+<style>
+ .back{display:inline-block;margin:3rem 0;color:var(--muted);font: .72rem 'DM Mono',monospace;text-decoration:none;text-transform:uppercase}.back:hover{color:var(--green)} article{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(2rem,7vw,7rem);padding:1rem 0 5rem}.photo img{width:100%;display:block;aspect-ratio:1.3;object-fit:cover}.eyebrow,dt{color:var(--green);font:500 .7rem 'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase}h1{margin:1rem 0;font-size:clamp(2.8rem,6vw,6rem);letter-spacing:-.09em;line-height:.9}h1 small{display:block;color:var(--muted);font-size:.4em;letter-spacing:-.02em;margin-top:.6rem}.price{display:block;font-size:1.6rem;color:var(--green);margin:2rem 0}dl{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:1rem 0;display:grid;gap:1rem}dl div{display:flex;justify-content:space-between;gap:1rem}dt{color:var(--muted);font-size:.62rem}dd{margin:0;font-family:'DM Mono',monospace;font-size:.8rem;text-align:right}.description{color:var(--muted);line-height:1.7}.as-is{font-weight:700;margin:2rem 0}.button{display:inline-block;padding:1rem 1.2rem;background:var(--green);color:#0b0f0d;font-weight:800;text-decoration:none}@media(max-width:760px){article{grid-template-columns:1fr}}
+</style>

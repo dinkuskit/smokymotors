@@ -1,0 +1,27 @@
+---
+import { Form } from '@emdash-cms/plugin-forms/ui';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { siteConfig } from '../config';
+
+const vehicle = Astro.url.searchParams.get('vehicle') ?? '';
+---
+<SiteLayout title="Contact / Visit">
+  <section class="contact-grid">
+    <div><p class="eyebrow">Come by the lot</p><h1>Let's talk cars.</h1><p class="copy">See something you like? Ask a question, or stop by Smoky Motors in Benton.</p><div class="info"><address>{siteConfig.address}</address><a href={siteConfig.mapsUrl} target="_blank" rel="noreferrer">Open in Google Maps →</a>{siteConfig.contactPhone ? <><a href={`tel:${siteConfig.contactPhone}`}>Call {siteConfig.contactPhone}</a><a href={`sms:${siteConfig.contactPhone}`}>Text us</a></> : <p class="flag">Phone / SMS is not configured yet.</p>}</div></div>
+    <div class="form-wrap"><p class="eyebrow">Ask about this car</p><h2>We’ll get back to you.</h2>
+      <Form id={siteConfig.formId} />
+      <form class="contact-form" action="/contact-submit" method="POST">
+        <input type="hidden" name="formId" value={siteConfig.formId} />
+        <label>Name<input name="name" required autocomplete="name" /></label>
+        <label>Email<input name="email" type="email" required autocomplete="email" /></label>
+        <label>Phone<input name="phone" type="tel" autocomplete="tel" /></label>
+        <label>Vehicle<textarea name="message" required>{vehicle ? `I'm asking about the ${vehicle}.` : ''}</textarea></label>
+        <button type="submit">Send inquiry</button>
+        <p class="fine">Your inquiry is saved securely in our CMS. No payment or checkout is offered online.</p>
+      </form>
+    </div>
+  </section>
+</SiteLayout>
+<style>
+ .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,8vw,9rem);padding:7rem 0}.eyebrow{color:var(--green);font:500 .7rem 'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase}h1{font-size:clamp(3.5rem,8vw,7rem);letter-spacing:-.1em;line-height:.88;margin:1rem 0 2rem}.copy{max-width:400px;color:var(--muted);line-height:1.6}.info{display:grid;gap:.8rem;margin-top:3rem}.info address{font-style:normal}.info a{color:var(--green);text-decoration:none}.flag{color:#e5b778;font: .7rem 'DM Mono',monospace}.form-wrap{background:var(--card);padding:clamp(1.5rem,4vw,3rem)}h2{font-size:2rem;letter-spacing:-.06em;margin:.8rem 0 2rem}.contact-form{display:grid;gap:1rem}.contact-form label{display:grid;gap:.4rem;color:var(--muted);font: .7rem 'DM Mono',monospace;text-transform:uppercase}.contact-form input,.contact-form textarea{border:1px solid var(--line);padding:.85rem;background:#0b0f0d;color:var(--ink);font:1rem Manrope,sans-serif}.contact-form textarea{min-height:130px;resize:vertical}.contact-form button{border:0;padding:1rem;background:var(--green);color:#0b0f0d;font-weight:800;cursor:pointer}.fine{color:var(--muted);font-size:.72rem;line-height:1.5}.form-wrap :global(.ec-form){margin-bottom:2rem}@media(max-width:760px){.contact-grid{grid-template-columns:1fr;padding:4rem 0}}
+</style>

@@ -1,0 +1,18 @@
+---
+import { getMenu } from 'emdash';
+
+const menu = await getMenu('site-primary');
+const items = menu?.items ?? [
+  { label: 'Home', url: '/' },
+  { label: 'Inventory', url: '/inventory' },
+  { label: 'About', url: '/about' },
+  { label: 'Contact / Visit', url: '/contact' },
+];
+---
+
+<header class="site-header">
+  <a class="brand" href="/" aria-label="Smoky Motors home">SMOKY <span>MOTORS</span></a>
+  <nav aria-label="Primary navigation">
+    {items.map((item) => <a href={item.url}>{item.label}</a>)}
+  </nav>
+</header>

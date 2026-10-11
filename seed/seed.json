@@ -1,65 +1,48 @@
 {
   "$schema": "https://emdashcms.com/seed.schema.json",
   "version": "1",
-  "meta": {
-    "name": "Smoky Motors coming soon",
-    "description": "Seeded copy and editable navigation for the Smoky Motors launch page.",
-    "author": "Smoky Motors"
-  },
+  "meta": {"name": "Smoky Motors inventory", "description": "Editable Smoky Motors pages, navigation, and used-vehicle inventory.", "author": "Smoky Motors"},
   "collections": [
-    {
-      "slug": "pages",
-      "label": "Pages",
-      "labelSingular": "Page",
-      "supports": ["drafts", "revisions"],
-      "fields": [
-        {
-          "slug": "title",
-          "label": "Title",
-          "type": "string",
-          "required": true
-        },
-        {
-          "slug": "headline",
-          "label": "Headline",
-          "type": "string",
-          "required": true
-        },
-        {
-          "slug": "status_line",
-          "label": "Status line",
-          "type": "string",
-          "required": true
-        },
-        {
-          "slug": "address",
-          "label": "Address",
-          "type": "string",
-          "required": true
-        }
-      ]
-    }
+    {"slug": "pages", "label": "Pages", "labelSingular": "Page", "supports": ["drafts", "revisions"], "fields": [
+      {"slug": "title", "label": "Title", "type": "string", "required": true},
+      {"slug": "headline", "label": "Headline", "type": "string", "required": true},
+      {"slug": "address", "label": "Address", "type": "string", "required": true}
+    ]},
+    {"slug": "vehicles", "label": "Vehicles", "labelSingular": "Vehicle", "description": "Public used-vehicle listings. Purchase price is private lot accounting and must never be rendered publicly.", "urlPattern": "/inventory/{slug}", "supports": ["drafts", "revisions", "search"], "fields": [
+      {"slug": "year", "label": "Year", "type": "number", "required": true, "indexed": true},
+      {"slug": "make", "label": "Make", "type": "string", "required": true, "searchable": true},
+      {"slug": "model", "label": "Model", "type": "string", "required": true, "searchable": true},
+      {"slug": "trim", "label": "Trim", "type": "string"},
+      {"slug": "price", "label": "Public asking price", "type": "number", "required": true},
+      {"slug": "mileage", "label": "Mileage", "type": "number", "required": true},
+      {"slug": "vin", "label": "VIN", "type": "string", "required": true, "unique": true},
+      {"slug": "photos", "label": "Photos", "type": "string"},
+      {"slug": "description", "label": "Description", "type": "string", "required": true},
+      {"slug": "availability", "label": "Status (available / sold)", "type": "string", "required": true, "options": {"choices": [{"value": "available", "label": "Available"}, {"value": "sold", "label": "Sold"}]}},
+      {"slug": "purchase_price", "label": "Purchase price (ADMIN ONLY — NEVER PUBLIC)", "type": "number", "required": true}
+    ]}
   ],
-  "menus": [
-    {
-      "name": "site-primary",
-      "label": "Site navigation",
-      "items": []
-    }
-  ],
+  "menus": [{"name": "site-primary", "label": "Site navigation", "items": [
+    {"type": "custom", "label": "Home", "url": "/"},
+    {"type": "custom", "label": "Inventory", "url": "/inventory"},
+    {"type": "custom", "label": "About", "url": "/about"},
+    {"type": "custom", "label": "Contact / Visit", "url": "/contact"}
+  ]}],
   "content": {
-    "pages": [
-      {
-        "id": "home",
-        "slug": "home",
-        "status": "published",
-        "data": {
-          "title": "Smoky Motors",
-          "headline": "SMOKY MOTORS",
-          "status_line": "Coming soon",
-          "address": "7264 HWY 411, Benton, TN 37307"
-        }
-      }
+    "pages": [{"id": "home", "slug": "home", "status": "published", "data": {"title": "Smoky Motors", "headline": "Find your next ride.", "address": "7264 HWY 411, Benton, TN 37307"}}],
+    "vehicles": [
+      {"id": "toyota-tacoma-2021", "slug": "2021-toyota-tacoma-sr5", "status": "published", "data": {"year": 2021, "make": "Toyota", "model": "Tacoma", "trim": "SR5 4x4", "price": 29995, "mileage": 64210, "vin": "3TMCZ5AN8MM123401", "photos": "vehicle-placeholder.svg", "description": "Dependable 4x4 pickup with a clean, well-kept interior and plenty of life left.", "availability": "available", "purchase_price": 24100}},
+      {"id": "honda-crv-2020", "slug": "2020-honda-cr-v-ex", "status": "published", "data": {"year": 2020, "make": "Honda", "model": "CR-V", "trim": "EX AWD", "price": 24995, "mileage": 73104, "vin": "2HKRW2H56LH612842", "photos": "vehicle-placeholder.svg", "description": "Comfortable, efficient AWD crossover ready for a family commute or weekend trip.", "availability": "available", "purchase_price": 19800}},
+      {"id": "ford-f150-2019", "slug": "2019-ford-f-150-xlt", "status": "published", "data": {"year": 2019, "make": "Ford", "model": "F-150", "trim": "XLT SuperCrew", "price": 27995, "mileage": 88432, "vin": "1FTEW1EP5KFA38216", "photos": "vehicle-placeholder.svg", "description": "Full-size capability with a comfortable cab and practical bed.", "availability": "available", "purchase_price": 22400}},
+      {"id": "subaru-outback-2021", "slug": "2021-subaru-outback-premium", "status": "published", "data": {"year": 2021, "make": "Subaru", "model": "Outback", "trim": "Premium AWD", "price": 23995, "mileage": 68991, "vin": "4S4BTAFC2M3185402", "photos": "vehicle-placeholder.svg", "description": "All-weather wagon with space for gear, groceries, and mountain roads.", "availability": "available", "purchase_price": 19100}},
+      {"id": "chevrolet-silverado-2018", "slug": "2018-chevrolet-silverado-1500", "status": "published", "data": {"year": 2018, "make": "Chevrolet", "model": "Silverado 1500", "trim": "LT Crew Cab", "price": 25995, "mileage": 102330, "vin": "3GCUKREC3JG411782", "photos": "vehicle-placeholder.svg", "description": "Solid work truck with a crew cab and proven V8 power.", "availability": "available", "purchase_price": 20500}},
+      {"id": "jeep-wrangler-2020", "slug": "2020-jeep-wrangler-unlimited", "status": "published", "data": {"year": 2020, "make": "Jeep", "model": "Wrangler", "trim": "Unlimited Sport", "price": 31995, "mileage": 55780, "vin": "1C4HJXDG4LW201945", "photos": "vehicle-placeholder.svg", "description": "Four-door trail-ready fun with removable top and classic Jeep character.", "availability": "available", "purchase_price": 25800}},
+      {"id": "nissan-altima-2022", "slug": "2022-nissan-altima-sr", "status": "published", "data": {"year": 2022, "make": "Nissan", "model": "Altima", "trim": "SR", "price": 21995, "mileage": 41822, "vin": "1N4BL4CV9NN310524", "photos": "vehicle-placeholder.svg", "description": "Sporty, comfortable sedan with excellent highway manners.", "availability": "available", "purchase_price": 17400}},
+      {"id": "ram-1500-2019", "slug": "2019-ram-1500-big-horn", "status": "published", "data": {"year": 2019, "make": "Ram", "model": "1500", "trim": "Big Horn Crew Cab", "price": 28995, "mileage": 79500, "vin": "1C6SRFJT1KN624190", "photos": "vehicle-placeholder.svg", "description": "Roomy crew cab and smooth V8 power for work or towing.", "availability": "available", "purchase_price": 23200}},
+      {"id": "mazda-cx5-2020", "slug": "2020-mazda-cx-5-touring", "status": "published", "data": {"year": 2020, "make": "Mazda", "model": "CX-5", "trim": "Touring", "price": 22495, "mileage": 60211, "vin": "JM3KFBDM7L0819233", "photos": "vehicle-placeholder.svg", "description": "Sharp handling and a thoughtful cabin in a compact crossover.", "availability": "available", "purchase_price": 17950}},
+      {"id": "hyundai-santa-fe-2021", "slug": "2021-hyundai-santa-fe-sel", "status": "published", "data": {"year": 2021, "make": "Hyundai", "model": "Santa Fe", "trim": "SEL AWD", "price": 25995, "mileage": 52218, "vin": "5NMS3DAJ7MH281674", "photos": "vehicle-placeholder.svg", "description": "Modern AWD utility with a quiet ride and generous passenger room.", "availability": "available", "purchase_price": 20800}},
+      {"id": "gmc-sierra-2017", "slug": "2017-gmc-sierra-1500-slt", "status": "published", "data": {"year": 2017, "make": "GMC", "model": "Sierra 1500", "trim": "SLT Crew Cab", "price": 26995, "mileage": 111205, "vin": "3GTU2NEC7HG390415", "photos": "vehicle-placeholder.svg", "description": "Comfortable leather-trimmed truck with plenty of practical capability.", "availability": "available", "purchase_price": 21300}},
+      {"id": "toyota-camry-2019", "slug": "2019-toyota-camry-se", "status": "published", "data": {"year": 2019, "make": "Toyota", "model": "Camry", "trim": "SE", "price": 20995, "mileage": 70566, "vin": "4T1B11HK5KU781236", "photos": "vehicle-placeholder.svg", "description": "Efficient, comfortable sedan with the sporty SE look.", "availability": "available", "purchase_price": 16600}}
     ]
   }
 }

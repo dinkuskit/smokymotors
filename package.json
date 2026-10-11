@@ -27,6 +27,7 @@
     "@emdash-cms/auth": "^1.2.0",
     "@emdash-cms/blocks": "^1.2.0",
     "@emdash-cms/cloudflare": "^1.2.0",
+    "@emdash-cms/plugin-forms": "^0.2.9",
     "emdash": "^1.2.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"

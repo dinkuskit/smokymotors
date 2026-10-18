@@ -26,6 +26,27 @@ const { title, description = 'Used vehicles in Benton, Tennessee from Smoky Moto
     <meta name="twitter:description" content={description} />
     <link rel="icon" href="/favicon.svg" />
     <title>{title} | {siteConfig.name}</title>
+    {siteConfig.contactPhone && (
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'AutoDealer',
+          name: siteConfig.name,
+          telephone: siteConfig.telephone,
+          email: siteConfig.contactEmail,
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: '7264 HWY 411',
+            addressLocality: 'Benton',
+            addressRegion: 'TN',
+            postalCode: '37307',
+            addressCountry: 'US',
+          },
+          url: 'https://smokymotors.com',
+        })}
+      />
+    )}
   </head>
   <body>
     <SiteHeader />

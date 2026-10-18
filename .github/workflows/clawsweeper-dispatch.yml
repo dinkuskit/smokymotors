@@ -47,7 +47,7 @@ jobs:
         id: live
         env:
           GH_TOKEN: ${{ github.token }}
-          TARGET_REPO: dinkuskit/smokymotors
+          TARGET_REPO: saari-co/smokymotors
           TARGET_ID: '1413753774'
           PR_NUMBER: ${{ github.event.pull_request.number || github.event.issue.number || inputs.pr_number }}
           MANUAL_PUBLISH: ${{ inputs.publish }}

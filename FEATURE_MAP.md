@@ -5,7 +5,7 @@
 - Astro renders responsive Home, Inventory, vehicle detail, About, and Contact / Visit pages.
 - The lot address is 7264 HWY 411, Benton, TN 37307. There is no payments or checkout flow.
 - Vehicle detail pages expose only asking price, mileage, VIN, photos, description, status, and the required “Sold as-is, no warranty.” language.
-- `src/config.ts` is the single contact configuration. `PUBLIC_CONTACT_PHONE` defaults to the flagged placeholder `123-456-7890` until Ryan supplies the lot number; email defaults to `sales@smokymotors.com`.
+- `src/config.ts` is the single contact configuration. `PUBLIC_CONTACT_PHONE` defaults to `(423) 925-3582` (`tel:+14239253582` / `+1-423-925-3582`); email defaults to `sales@smokymotors.com`.
 - Open Graph, Twitter, viewport, Google Maps, and conditional `tel:` / `sms:` links are present.
 
 ## EmDash content and privacy
